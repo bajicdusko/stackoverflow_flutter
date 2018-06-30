@@ -1,8 +1,5 @@
-# first_flutter_app
+# StackOverflow Flutter
 
-First Flutter app
-
-## Getting Started
-
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+##WIP!
+Similar app to KotlinStarterKit which loads the questions from SO, written in Flutter.
+Atm, this is just a Flutter playing around piece of code.
