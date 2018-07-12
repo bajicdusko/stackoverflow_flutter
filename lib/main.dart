@@ -1,3 +1,4 @@
+import 'package:first_flutter_app/app/SplashScreen.dart';
 import 'package:first_flutter_app/app/home/HomeWidget.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),
-      home: HomeWidget(),
+      home: SplashScreen(),
     );
   }
 }

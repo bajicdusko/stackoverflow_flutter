@@ -5,15 +5,23 @@ import 'package:first_flutter_app/data/model/SoQuestion.dart';
 import 'package:http/http.dart' as http;
 
 abstract class StackOverflowRepository {
-  Future<Stream<StackOverflowQuestion>> getAndroidQuestions();
+  Future<Stream<StackOverflowQuestion>> getAndroidQuestions(List<String> activeFilters);
 }
 
 class ApiSoRepository implements StackOverflowRepository {
   @override
-  Future<Stream<StackOverflowQuestion>> getAndroidQuestions() async {
+  Future<Stream<StackOverflowQuestion>> getAndroidQuestions(List<String> activeFilters) async {
     var client = http.Client();
-    var url =
-        "https://api.stackexchange.com/2.2/questions?order=desc&sort=activity&site=stackoverflow&pagesize=100&tagged=android";
+
+    StringBuffer activeTagsParam = StringBuffer();
+    activeTagsParam.writeAll(activeFilters, ",");
+
+    var url = 'https://api.stackexchange.com/2.2/questions?'
+        'order=desc&'
+        'sort=activity&'
+        'site=stackoverflow&'
+        'pagesize=100&'
+        'tagged=${activeTagsParam.toString()}';
 
     var response = await client.send(new http.Request("get", Uri.parse(url)));
 

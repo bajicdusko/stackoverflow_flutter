@@ -1,3 +1,4 @@
+import 'package:first_flutter_app/app/home/FilterWidget.dart';
 import 'package:first_flutter_app/app/home/HomeWidget.dart';
 import 'package:first_flutter_app/app/question/QuestionList.dart';
 import 'package:first_flutter_app/app/ui/BlueButton.dart';
@@ -22,14 +23,21 @@ class HomeState extends State<HomeWidget> {
       appBar: AppBar(
         centerTitle: true,
         title: Text("StackOverflow Questions"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.filter_list),
+            onPressed: () => showFilterScreen(),
+          )
+        ],
       ),
       body: Center(
-          child: Column(
-        children: <Widget>[
-          QuestionList(questions),
-          BlueButton("Reload", clickFn),
-        ],
-      )),
+        child: Column(
+          children: <Widget>[
+            QuestionList(questions),
+            BlueButton("Reload", clickFn),
+          ],
+        ),
+      ),
     );
   }
 
@@ -38,11 +46,19 @@ class HomeState extends State<HomeWidget> {
   }
 
   loadQuestions() async {
-    var resStream = await apiRepo.getAndroidQuestions();
+    print("Loading questions.");
+    var resStream = await apiRepo.getAndroidQuestions(activeFilters);
+    questions.clear();
     resStream.listen((question) => setState(() {
           if (!questions.contains(question)) {
             questions.insert(0, question);
           }
         }));
+  }
+
+  showFilterScreen() {
+    Navigator
+        .push(context, MaterialPageRoute(builder: (context) => FilterWidget()))
+        .then((value) => loadQuestions());
   }
 }
