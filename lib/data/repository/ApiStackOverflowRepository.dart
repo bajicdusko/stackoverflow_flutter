@@ -1,14 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:first_flutter_app/data/model/SoQuestion.dart';
+import 'package:first_flutter_app/domain/repository/StackOverflowRepository.dart';
+import 'package:first_flutter_app/domain/model/StackOverflowQuestion.dart';
 import 'package:http/http.dart' as http;
 
-abstract class StackOverflowRepository {
-  Future<Stream<StackOverflowQuestion>> getAndroidQuestions(List<String> activeFilters);
-}
-
-class ApiSoRepository implements StackOverflowRepository {
+class ApiStackOverflowRepository implements StackOverflowRepository {
   @override
   Future<Stream<StackOverflowQuestion>> getAndroidQuestions(List<String> activeFilters) async {
     var client = http.Client();

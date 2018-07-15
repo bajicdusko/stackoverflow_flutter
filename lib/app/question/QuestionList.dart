@@ -1,5 +1,5 @@
 import 'package:first_flutter_app/app/question/QuestionWidget.dart';
-import 'package:first_flutter_app/data/model/SoQuestion.dart';
+import 'package:first_flutter_app/domain/model/StackOverflowQuestion.dart';
 import 'package:flutter/material.dart';
 
 class QuestionList extends StatelessWidget {
@@ -12,8 +12,9 @@ class QuestionList extends StatelessWidget {
     return Expanded(
       child: ListView(
         children: questions
-            .map((item) => QuestionWidget(item.title, item.author, item.avatar))
+            .map((item) => QuestionWidget(item))
             .toList(),
+
       ),
     );
   }
